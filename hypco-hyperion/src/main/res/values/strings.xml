@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public name="hypco_hyperion_library_name" type="string">HypCo-Hyperion</public>
+    <string name="hypco_plugin_name">HypCo</string>
+    <string name="hypco_plugin_subtitle">Device logger.</string>
+</resources>

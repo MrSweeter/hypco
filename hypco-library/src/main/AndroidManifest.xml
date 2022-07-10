@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="be.msdc.hypco">
+
+    <application
+        android:name=".HypCoApplication"
+        >
+        <activity
+            android:name=".internal.ui.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:exported="true"
+            android:allowBackup="false"
+            android:theme="@style/Theme.HypCo" />
+    </application>
+
+</manifest>
