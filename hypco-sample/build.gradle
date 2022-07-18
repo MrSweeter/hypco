@@ -44,7 +44,8 @@ android {
 
 dependencies {
 
-    debugImplementation project(path: ':hypco-hyperion')
+    debugImplementation "be.msdc.hypco:hypco-hyperion:${hypco_version}"
+    //debugImplementation project(path: ':hypco-hyperion')
 
     debugImplementation 'com.willowtreeapps.hyperion:hyperion-core:0.9.34'
 

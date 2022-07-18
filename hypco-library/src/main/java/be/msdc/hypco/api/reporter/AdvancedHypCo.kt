@@ -12,11 +12,11 @@ class AdvancedHypCo internal constructor() : AdvancedSuspendHypCo(), CoroutineSc
         get() = Dispatchers.IO
 
     fun deleteAll() {
-        launch(errorHandler) { deleteAll() }
+        launch(errorHandler) { deleteAllSuspend() }
     }
 
     fun deleteAll(threshold: Date) {
-        launch(errorHandler) { deleteAll(threshold) }
+        launch(errorHandler) { deleteAllSuspend(threshold) }
     }
 
 }
