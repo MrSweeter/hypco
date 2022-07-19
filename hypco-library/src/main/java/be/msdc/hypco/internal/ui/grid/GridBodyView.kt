@@ -21,7 +21,7 @@ internal fun GridBodyView(
     val columnCount = when (rememberWindowInfo().screenWidthInfo) {
         AppWindowInfo.WindowType.Compact -> 2
         AppWindowInfo.WindowType.Medium -> 4
-        AppWindowInfo.WindowType.Expanded -> 8
+        AppWindowInfo.WindowType.Expanded -> 6
     }
     LazyVerticalGrid(columns = GridCells.Fixed(columnCount)) {
         for (child in children) {
