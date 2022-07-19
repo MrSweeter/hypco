@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
-    id 'maven-publish'
 }
 
 android {
@@ -73,30 +72,10 @@ dependencies {
     debugImplementation "androidx.customview:customview-poolingcontainer:1.0.0-rc01"
 }
 
-def githubProperties = new Properties()
-githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
-
-afterEvaluate {
-    publishing {
-        publications {
-            debug(MavenPublication) {
-                from components.debug
-
-                groupId = 'be.msdc.hypco'
-                artifactId = 'hypco-library'
-                version = "${hypco_version}"
-            }
-        }
-
-        repositories {
-            maven {
-                name = 'GitHubPackage'
-                url = uri("https://maven.pkg.github.com/${githubProperties['githubUser']}/hypco")
-                credentials {
-                    username = "${githubProperties['githubUser']}"
-                    password = "${githubProperties['githubKey']}"
-                }
-            }
-        }
-    }
+ext {
+    PUBLISH_GROUP_ID = "${hypco_group_id}"
+    PUBLISH_VERSION = "${hypco_version}"
+    PUBLISH_ARTIFACT_ID = 'hypco-library'
 }
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"

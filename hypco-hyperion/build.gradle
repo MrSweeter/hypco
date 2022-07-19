@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'maven-publish'
 }
 
 android {
@@ -28,34 +27,14 @@ dependencies {
     api 'com.willowtreeapps.hyperion:hyperion-plugin:0.9.34'
     kapt "com.google.auto.service:auto-service:1.0-rc7"
 
-    api "be.msdc.hypco:hypco-library:${hypco_version}"
+    api "${hypco_group_id}:hypco-library:${hypco_version}"
     //api project(path: ':hypco-library')
 }
 
-def githubProperties = new Properties()
-githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
-
-afterEvaluate {
-    publishing {
-        publications {
-            debug(MavenPublication) {
-                from components.debug
-
-                groupId = 'be.msdc.hypco'
-                artifactId = 'hypco-hyperion'
-                version = "${hypco_version}"
-            }
-        }
-
-        repositories {
-            maven {
-                name = 'GitHubPackage'
-                url = uri("https://maven.pkg.github.com/${githubProperties['githubUser']}/hypco")
-                credentials {
-                    username = "${githubProperties['githubUser']}"
-                    password = "${githubProperties['githubKey']}"
-                }
-            }
-        }
-    }
+ext {
+    PUBLISH_GROUP_ID = "${hypco_group_id}"
+    PUBLISH_VERSION = "${hypco_version}"
+    PUBLISH_ARTIFACT_ID = 'hypco-hyperion'
 }
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
