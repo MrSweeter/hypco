@@ -70,6 +70,9 @@ dependencies {
     // Preview for library https://issuetracker.google.com/issues/227767363
     debugImplementation "androidx.customview:customview:1.2.0-alpha01"
     debugImplementation "androidx.customview:customview-poolingcontainer:1.0.0-rc01"
+
+    implementation "io.github.mrsweeter:compose-jsonviewer:1.0.0-beta01"
+    implementation "io.github.mrsweeter:compose-xmlviewer:1.0.0-beta01"
 }
 
 ext {

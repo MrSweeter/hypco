@@ -6,12 +6,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
@@ -24,6 +25,10 @@ import be.msdc.hypco.api.model.NodeItem
 import be.msdc.hypco.internal.navigation.ItemSelector
 import be.msdc.hypco.internal.ui.screen.CombineBodyView
 import be.msdc.hypco.internal.ui.widget.StateTextBadge
+import be.msdc.jsonviewer_library.JsonUIRoot
+import be.msdc.xmlviewer_library.XmlUIRoot
+import be.msdc.jsonviewer_library.defaultColorScheme as JsonScheme
+import be.msdc.xmlviewer_library.defaultColorScheme as XmlScheme
 
 @Composable
 internal fun DetailBodyView(
@@ -66,23 +71,44 @@ internal fun DetailBodyView(
                 }
             }
             1 -> {
-                if (item.contentType != ItemContentType.NOTHING && !item.content.isNullOrEmpty())    {
-                    Column(modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.tertiaryContainer)
-                        .clickable {
-                            clipboardManager.setText(AnnotatedString(item.getFormattedContent()))
-                            Toast
-                                .makeText(context, "Content copied to clipboard", Toast.LENGTH_LONG)
-                                .show()
-                        }) {
+                when (item.contentType) {
+                    ItemContentType.NOTHING -> {
+                        Column {
+                            Text(text = "No content but: ${item.children.size} children")
+                            CombineBodyView(item = item, selectedItem = selectedItem)
+                        }
+                    }
+                    ItemContentType.JSON -> {
+                        JsonUIRoot(
+                            jsonString = item.getFormattedContent(),
+                            modifier = Modifier.fillMaxSize(),
+                            colorScheme = JsonScheme(
+                                background = Color.LightGray,
+                            )
+                        )
+                    }
+                    ItemContentType.XML -> {
+                        XmlUIRoot(
+                            xmlString = item.getFormattedContent(),
+                            modifier = Modifier.fillMaxSize(),
+                            colorScheme = XmlScheme(
+                                background = Color.LightGray,
+                            )
+                        )
+                    }
+                    else -> {
+                        Column(modifier = Modifier
+                            .verticalScroll(rememberScrollState())
+                            .fillMaxSize()
+                            .background(colorScheme.tertiaryContainer)
+                            .clickable {
+                                clipboardManager.setText(AnnotatedString(item.getFormattedContent()))
+                                Toast
+                                    .makeText(context, "Content copied to clipboard", Toast.LENGTH_LONG)
+                                    .show()
+                            }) {
                             Text(text = item.getFormattedContent())
                         }
-                } else {
-                    Column {
-                        Text(text = "No content but: ${item.children.size} children")
-                        CombineBodyView(item = item, selectedItem = selectedItem)
                     }
                 }
             }
