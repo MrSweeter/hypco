@@ -5,6 +5,7 @@ enum class ItemType(internal val collectionType: CollectionType) {
     PROGRESS_CARD(CollectionType.LIST),
     SIMPLE_CARD(CollectionType.LIST),
     SIMPLE_TEXT(CollectionType.LIST),
+    SIMPLE_LINK(CollectionType.LIST),
     DEFAULT(CollectionType.LIST);
 
     internal enum class CollectionType {

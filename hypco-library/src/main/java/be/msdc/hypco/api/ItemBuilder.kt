@@ -15,6 +15,7 @@ class ItemBuilder internal constructor() {
 
     private var subtitle: String? = null
     private var description: String? = null
+    private var link: String? = null
     private var itemImage: ItemImage? = null
     private var content: String? = null
     private var contentType: ItemContentType = ItemContentType.NOTHING
@@ -74,6 +75,11 @@ class ItemBuilder internal constructor() {
         return this
     }
 
+    fun withLink(link: String): ItemBuilder {
+        this.link = link
+        return this
+    }
+
     fun withChildren(children: List<NodeItem>): ItemBuilder {
         this.children = children
         return this
@@ -95,6 +101,7 @@ class ItemBuilder internal constructor() {
             progress = progress,
             maxProgress = maxProgress,
             progressText = progressText,
+            link = link
         ).apply {
             updateChildren(childList)
         }
@@ -120,6 +127,7 @@ class ItemBuilder internal constructor() {
                 .withSubtitle("This is a preview subtitle")
                 .withDescription("This is a preview description")
                 .withContent("This is a preview content", ItemContentType.TEXT)
+                .withLink("https://tvplus.voo.be/deeplink/SECTION/SETTINGS")
                 .build("Title-$id")
         }
 
@@ -146,6 +154,8 @@ class ItemBuilder internal constructor() {
                             preview().apply { type = ItemType.PROGRESS_CARD },
                             preview().apply { type = ItemType.SIMPLE_CARD },
                             preview().apply { type = ItemType.SIMPLE_CARD },
+                            preview().apply { type = ItemType.SIMPLE_LINK },
+                            preview().apply { type = ItemType.SIMPLE_LINK; link = "https://google.com" },
                             preview().apply {
                                 type = ItemType.SIMPLE_CARD
                                 updateChildren(listOf(

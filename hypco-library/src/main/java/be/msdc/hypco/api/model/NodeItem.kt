@@ -20,6 +20,7 @@ class NodeItem(
     var progress: Float = 0f,
     var maxProgress: Float = 0f,
     var progressText: String? = null,
+    var link: String? = null
 ) {
     //#region Public
     var parentID: String? = null
@@ -58,7 +59,7 @@ class NodeItem(
     }
 
     internal val isClickable: Boolean
-        get() = contentType != ItemContentType.NOTHING || children.isNotEmpty()
+        get() = contentType != ItemContentType.NOTHING || children.isNotEmpty() || type == ItemType.SIMPLE_LINK
     internal val isLongClickable: Boolean
         get() = contentType != ItemContentType.NOTHING && children.isNotEmpty()
     internal val isListParent: Boolean

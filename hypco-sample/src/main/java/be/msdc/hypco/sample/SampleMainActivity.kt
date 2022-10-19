@@ -60,6 +60,14 @@ class SampleMainActivity : ComponentActivity(), CoroutineScope {
                         }
                         Button(
                             onClick = {
+                                hypco.reportLayer1(ItemBuilder.preview().apply { type = ItemType.SIMPLE_LINK })
+                                hypco.reportLayer1(ItemBuilder.preview().apply { type = ItemType.SIMPLE_LINK; link = "https://google.com" })
+                            }
+                        ) {
+                            Text(text = "Insert Link 1")
+                        }
+                        Button(
+                            onClick = {
                                 hypco.reportLayer2(ItemBuilder.preview(), ItemBuilder.preview())
                             }
                         ) {

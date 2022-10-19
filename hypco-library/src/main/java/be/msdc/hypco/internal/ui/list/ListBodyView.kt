@@ -10,6 +10,7 @@ import be.msdc.hypco.api.model.NodeItem
 import be.msdc.hypco.internal.navigation.ItemSelector
 import be.msdc.hypco.internal.ui.list.items.ProgressCard
 import be.msdc.hypco.internal.ui.list.items.SimpleCard
+import be.msdc.hypco.internal.ui.list.items.SimpleLink
 import be.msdc.hypco.internal.ui.list.items.SimpleText
 
 @Composable
@@ -23,6 +24,7 @@ internal fun ListBodyView(
                 when (child.type) {
                     ItemType.PROGRESS_CARD -> ProgressCard(item = child, selectedItem = selectedItem)
                     ItemType.SIMPLE_CARD -> SimpleCard(item = child, selectedItem = selectedItem)
+                    ItemType.SIMPLE_LINK -> SimpleLink(item = child, selectedItem = selectedItem)
                     ItemType.SIMPLE_TEXT,
                     ItemType.DEFAULT -> SimpleText(item = child, selectedItem = selectedItem)
                     else -> SimpleText(item = child, selectedItem = selectedItem)
